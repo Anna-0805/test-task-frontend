@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+
+  server:
+    build: ./server
+    container_name: dzencode_server
+    ports:
+      - "3001:3001"
+
+  client:
+    build: .
+    container_name: dzencode_client
+    ports:
+      - "80:80"
+    depends_on:
+      - server

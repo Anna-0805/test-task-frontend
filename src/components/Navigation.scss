@@ -1,0 +1,70 @@
+.navigation {
+  min-width: 220px;
+  max-width: 220px;
+  height: calc(100vh - 60px);
+  padding: 35px 20px 25px 20px;
+  background-color: #f8fafc;
+
+  &__profile {
+    margin-bottom: 45px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  &__avatar-wrapper {
+    position: relative;
+    width: 85px;
+    height: 85px;
+  }
+
+  &__avatar {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    border: 2px solid #ffffff;
+  }
+
+  &__settings-btn {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 26px;
+    height: 26px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 50%; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+    font-size: 11px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    z-index: 5;
+    
+    &:hover {
+      transform: scale(1.08);
+      background-color: #f1f5f9;
+    }
+  }
+
+  &__link {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #212529;
+    opacity: 0.4;
+    padding-bottom: 2px;
+    border-bottom: 2px solid transparent;
+    transition: opacity 0.2s ease-in-out, border-color 0.2s ease-in-out;
+
+    &:hover,
+    &--active {
+      opacity: 1;
+    }
+
+    &--active {
+      border-bottom: 2px solid #8bc34a;
+    }
+  }
+}
