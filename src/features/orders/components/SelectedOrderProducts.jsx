@@ -1,5 +1,3 @@
-
-
  const SelectedOrderProducts = ({ 
   selectedOrder, 
   selectedOrderProducts, 
@@ -18,7 +16,6 @@
         <span className="orders-page__add-product-text text-success small fw-bold"> Добавить продукт </span> 
       </div> 
       
-      {/* Список продуктів */} 
       <div className="d-flex flex-column gap-2"> 
         {selectedOrderProducts.map((product) => ( 
           <div key={product.id} className="orders-page__product-item d-flex align-items-center justify-content-between py-2 border-bottom border-light"> 

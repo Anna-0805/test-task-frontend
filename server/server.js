@@ -1,9 +1,15 @@
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import morgan from 'morgan';
+import logger from './logger.js';
 
 const app = express();
 const httpServer = createServer(app);
+
+app.use(morgan('combined', {
+  stream: { write: (message) => logger.info(message.trim()) }
+}));
 
 const io = new Server(httpServer, {
   cors: {
@@ -16,14 +22,19 @@ let activeSessions = 0;
 
 io.on('connection', (socket) => {
   activeSessions++;
+  logger.info(`[Socket Connected] ID: ${socket.id} | Active sessions: ${activeSessions}`);
+  
   io.emit('activeSessions', activeSessions);
 
   socket.on('disconnect', () => {
     activeSessions--;
+    logger.info(`[Socket Disconnected] ID: ${socket.id} | Active sessions: ${activeSessions}`);
+    
     io.emit('activeSessions', activeSessions);
   });
 });
 
-httpServer.listen(3001, () => {
-  console.log('WebSocket server is running on port 3001');
+const PORT = 3001;
+httpServer.listen(PORT, () => {
+  logger.info(`WebSocket server is running on port ${PORT}`);
 });

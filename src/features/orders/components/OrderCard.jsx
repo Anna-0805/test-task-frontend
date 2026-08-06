@@ -1,11 +1,11 @@
 
 import { useDispatch } from "react-redux";
-import { setSelectedOrderId } from "../store";
+import { setSelectedOrderId } from "../../../store";
 import { 
   calculateOrderTotal, 
   getOrderProductsCount, 
   formatDate 
-} from "../utils/helpers";
+} from "../../../utils/helpers";
 
 const OrderCard = ({ 
   order, 

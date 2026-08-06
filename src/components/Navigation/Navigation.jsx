@@ -1,13 +1,6 @@
 import { NavLink } from "react-router-dom";
 import "./Navigation.scss";
-
-const MENU_ITEMS = [
-  { to: "/orders", label: "Приход" },
-  { to: "/groups", label: "Группы" },
-  { to: "/products", label: "Продукты" },
-  { to: "/users", label: "Пользователи" },
-  { to: "/settings", label: "Настройки" },
-];
+import { MENU_ITEMS } from "../../utils/constants";
 
 const Navigation = () => {
   return (

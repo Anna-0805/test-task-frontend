@@ -2,18 +2,16 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectProducts, selectOrders } from '../store'; 
 import { useOrderActions } from '../hooks/useOrderActions';
-import DeleteOrderModal from '../components/DeleteOrderModal';
+import DeleteOrderModal from '../features/orders/components/DeleteOrderModal';
 import './ProductsPage.scss'; 
-import ProductList from '../components/ProductList';
+import ProductList from '../features/products/components/ProductList';
 
 const ProductsPage = () => {
   const products = useSelector(selectProducts);
   const orders = useSelector(selectOrders);
   
-  // Локальный стейт только для фильтрации (это ок оставить здесь)
   const [selectedType, setSelectedType] = useState('All');
 
-  // Забираем готовую логику удаления из хука
   const {
     isModalOpen,
     itemToDelete,
