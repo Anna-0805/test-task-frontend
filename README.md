@@ -2,6 +2,8 @@
 
 This is a Single-Page Application (SPA) built for managing orders and products, featuring a real-time active browser sessions/tabs counter integrated via WebSockets.
 
+**Live Demo:** test-task-frontend-eta.vercel.app
+
 ## Tech Stack
 
 **Frontend:** React.js, Redux Toolkit, React Router v6, Bootstrap 5, SCSS, Framer Motion
