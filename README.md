@@ -4,6 +4,10 @@ This is a Single-Page Application (SPA) built for managing orders and products, 
 
 **Live Demo:** test-task-frontend-eta.vercel.app
 
+
+**Link to the project demonstration video:**
+ https://drive.google.com/file/d/1w8XFilF78bUrvp757H8_ym0OjXa_R6OP/view?usp=sharing
+
 ## Tech Stack
 
 **Frontend:** React.js, Redux Toolkit, React Router v6, Bootstrap 5, SCSS, Framer Motion
