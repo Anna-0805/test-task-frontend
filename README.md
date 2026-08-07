@@ -11,7 +11,11 @@ This is a Single-Page Application (SPA) built for managing orders and products, 
 ## Tech Stack
 
 **Frontend:** React.js, TypeScript, Redux Toolkit, React Router v6, Bootstrap 5, SCSS, Vite
+
+
 **Backend/Realtime:** Node.js, Socket.io (Active sessions counter)
+
+
 **DevOps:** Docker, Docker Compose
 
 ---
