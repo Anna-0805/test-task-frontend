@@ -1,6 +1,6 @@
 .app-wrapper {
   height: 100vh;
-  background-color: #f8fafc; /* Альтернатива bg-light */
+  background-color: #f8fafc;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -9,11 +9,11 @@
 .app-main-content {
   display: flex;
   flex-grow: 1;
-  height: calc(100vh - 60px); /* Висота екрану мінус шапка TopMenu */
+  height: calc(100vh - 60px); 
 }
 
 .app-page-view {
   flex-grow: 1;
-  padding: 1.5rem; /* Заміна p-4 */
+  padding: 1.5rem; 
   overflow: auto;
 }

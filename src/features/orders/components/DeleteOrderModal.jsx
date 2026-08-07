@@ -65,7 +65,7 @@ const DeleteOrderModal = ({
                 className="orders-popup__cancel-btn btn btn-link text-secondary text-uppercase fw-bold text-decoration-none small p-0"
                 onClick={onClose}
               >
-                Отменить
+                Cancel
               </button>
               <button
                 className="orders-popup__delete-btn btn btn-white bg-white text-danger text-uppercase fw-bold rounded-pill px-4 py-2 d-flex align-items-center gap-2"
@@ -78,7 +78,7 @@ const DeleteOrderModal = ({
                     className="orders-popup__trash-img"
                   />
                 </span>
-                Удалить
+                Delete
               </button>
             </div>
           </div>
