@@ -8,10 +8,10 @@
 }
 
 .p-cell {
-  flex-shrink: 0; 
-  flex-grow: 0; 
+  flex-shrink: 0;
+  flex-grow: 0;
   padding: 0 8px;
-  font-size: 13px; 
+  font-size: 13px;
   white-space: nowrap;
 
   &__dot {
@@ -38,13 +38,12 @@
     margin-top: 1px;
   }
 
-  
   &__guarantee-row {
     display: flex;
     align-items: center;
-    
+
     & + & {
-      margin-top: 2px; 
+      margin-top: 2px;
     }
 
     .text-muted {
@@ -59,7 +58,9 @@
     align-items: center;
     justify-content: center;
     opacity: 0.5;
-    transition: opacity 0.2s, color 0.2s;
+    transition:
+      opacity 0.2s,
+      color 0.2s;
 
     &:hover {
       opacity: 1;
@@ -68,33 +69,54 @@
   }
 
   /* Размеры колонок */
-  &--status { width: 35px; }
-  &--photo { width: 65px; }
-  &--info { width: 190px; }
-  &--status-text { width: 95px; font-weight: 500; }
-  &--guarantee { width: 140px; }
-  &--spec { width: 65px; }
-  &--price { width: 110px; }
-  &--order-date { width: 100px; }
-  &--delete { width: 45px; flex-grow: 1; text-align: right; }
-  
-  &--group { 
-    width: 240px; 
-    white-space: normal; 
+  &--status {
+    width: 35px;
+  }
+  &--photo {
+    width: 65px;
+  }
+  &--info {
+    width: 190px;
+  }
+  &--status-text {
+    width: 95px;
+    font-weight: 500;
+  }
+  &--guarantee {
+    width: 140px;
+  }
+  &--spec {
+    width: 65px;
+  }
+  &--price {
+    width: 110px;
+  }
+  &--order-date {
+    width: 100px;
+  }
+  &--delete {
+    width: 45px;
+    flex-grow: 1;
+    text-align: right;
+  }
+
+  &--group {
+    width: 240px;
+    white-space: normal;
     line-height: 1.3;
   }
-  
-  &--user { 
-    width: 165px; 
-    white-space: normal; 
+
+  &--user {
+    width: 165px;
+    white-space: normal;
     line-height: 1.3;
     word-break: normal;
-    overflow-wrap: break-word; 
+    overflow-wrap: break-word;
   }
-  
-  &--order { 
-    width: 110px; 
-    white-space: normal; 
+
+  &--order {
+    width: 110px;
+    white-space: normal;
     line-height: 1.3;
   }
 }

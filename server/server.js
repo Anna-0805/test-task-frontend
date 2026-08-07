@@ -7,9 +7,11 @@ import logger from './logger.js';
 const app = express();
 const httpServer = createServer(app);
 
-app.use(morgan('combined', {
-  stream: { write: (message) => logger.info(message.trim()) }
-}));
+app.use(
+  morgan('combined', {
+    stream: { write: (message) => logger.info(message.trim()) },
+  })
+);
 
 const io = new Server(httpServer, {
   cors: {
@@ -22,14 +24,18 @@ let activeSessions = 0;
 
 io.on('connection', (socket) => {
   activeSessions++;
-  logger.info(`[Socket Connected] ID: ${socket.id} | Active sessions: ${activeSessions}`);
-  
+  logger.info(
+    `[Socket Connected] ID: ${socket.id} | Active sessions: ${activeSessions}`
+  );
+
   io.emit('activeSessions', activeSessions);
 
   socket.on('disconnect', () => {
     activeSessions--;
-    logger.info(`[Socket Disconnected] ID: ${socket.id} | Active sessions: ${activeSessions}`);
-    
+    logger.info(
+      `[Socket Disconnected] ID: ${socket.id} | Active sessions: ${activeSessions}`
+    );
+
     io.emit('activeSessions', activeSessions);
   });
 });

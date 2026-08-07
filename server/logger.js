@@ -12,8 +12,8 @@ const logger = createLogger({
   ),
   transports: [
     new transports.Console(),
-    new transports.File({ filename: 'logs/server.log' })
-  ]
+    new transports.File({ filename: 'logs/server.log' }),
+  ],
 });
 
 export default logger;

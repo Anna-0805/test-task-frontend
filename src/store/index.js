@@ -1,9 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
-import logger from 'redux-logger';
-
-import orderReducer from '../features/orders/ordersSlice';
-import productReducer from '../features/products/productsSlice';
-
+import { configureStore } from "@reduxjs/toolkit";
+import logger from "redux-logger";
+import orderReducer from "../features/orders/ordersSlice";
+import productReducer from "../features/products/productsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -15,7 +13,7 @@ export const store = configureStore({
       return getDefaultMiddleware().concat(logger);
     }
     return getDefaultMiddleware();
-  }
+  },
 });
 
 export {
@@ -24,11 +22,10 @@ export {
   addOrder,
   selectOrders,
   selectSelectedOrderId,
-} from '../features/orders/ordersSlice';
+} from "../features/orders/ordersSlice";
 
 export {
   removeProduct,
-  removeProductsByOrderId,
   addProduct,
   selectProducts,
-} from '../features/products/productsSlice';
+} from "../features/products/productsSlice";

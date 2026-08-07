@@ -1,17 +1,17 @@
-export const DAYS_RU = [
-  "Воскресенье",
-  "Понедельник",
-  "Вторник",
-  "Среда",
-  "Четверг",
-  "Пятница",
-  "Суббота",
+export const DAYS_EN = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
 ];
 
 export const MENU_ITEMS = [
-  { to: "/orders", label: "Приход" },
-  { to: "/groups", label: "Группы" },
-  { to: "/products", label: "Продукты" },
-  { to: "/users", label: "Пользователи" },
-  { to: "/settings", label: "Настройки" },
+  { to: "/orders", label: "Delivery" },
+  { to: "/groups", label: "Groups" },
+  { to: "/products", label: "Products" },
+  { to: "/users", label: "Users" },
+  { to: "/settings", label: "Settings" },
 ];

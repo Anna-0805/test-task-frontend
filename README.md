@@ -1,41 +1,76 @@
 # Inventory Management App (SPA)
 
-Тестовое задание. Приложение для управления заказами (приходами) и продуктами с интеграцией веб-сокетов.
+This is a Single-Page Application (SPA) built for managing orders and products, featuring a real-time active browser sessions/tabs counter integrated via WebSockets.
 
-## Стек технологий
-*Frontend: React, Redux Toolkit, React Router v6, Bootstrap 5, SCSS
-*Realtime: Socket.io-client (счетчик активных вкладок)нy
+## Tech Stack
 
-## Установка и запуск
+**Frontend:** React.js, Redux Toolkit, React Router v6, Bootstrap 5, SCSS, Framer Motion
+**Backend/Realtime:** Node.js, Socket.io (Active sessions counter)
+**DevOps:** Docker, Docker Compose
 
-### 1. Клонирование проекта
+---
+
+## Installation and Setup
+
+### Prerequisites
+Make sure you have [Docker](https://docker.com) and [Node.js](https://nodejs.org) installed on your local machine.
+
+### 1. Clone the Repository
 ```bash
-git clone <ссылка_на_твой_репозиторий>
+git clone https://github.com
 cd test-task-frontend
 ```
 
-### 2. Установка зависимостей
+---
+
+## Method 1: Running via Docker Compose (Recommended)
+
+This approach automatically builds and spins up both the **Frontend client** and the **WebSocket server** inside isolated containers simultaneously using a single command.
+
+```bash
+# Build and run the entire application ecosystem
+docker-compose up --build
+```
+
+Once the compilation process finishes successfully:
+- **Frontend Application:** Available at `http://localhost:5173` (or the port specified by Vite in your terminal)
+- **WebSocket Server:** Automatically runs on `http://localhost:3001`
+
+To stop and remove the containers, run:
+```bash
+docker-compose down
+```
+
+---
+
+## Method 2: Running Locally via Terminal (Manual)
+
+If you prefer to run the components manually without Docker, you will need to open **two separate terminal windows** because the frontend and the WebSocket server run on separate processes.
+
+### 1. Start the WebSocket Server
+Open your first terminal window and navigate to the server directory:
+```bash
+cd server
+npm install
+node index.js
+```
+*The server will start listening for socket connections on `http://localhost:3001`.*
+
+### 2. Start the Frontend Client
+Open your second terminal window at the root of the project (`test-task-frontend`):
 ```bash
 npm install
-```
-
-### 3. Запуск клиентской части
-```bash
 npm run dev
 ```
-*После этого приложение откроется в браузере по адресу `http://localhost:5173` (или другой порт от Vite).*
+*The React application will spin up and open at `http://localhost:5173`.*
 
-### 4. WebSocket сервер (Счетчик сессий)
-* Логика подключения к WebSocket настроена в компоненте `TopMenu` на порт `http://localhost:3001` согласно ТЗ.
-* Мок-данные для заказов и продуктов вынесены в отдельный модуль `src/utils/mockData.js` и инициализируются в Redux-хранилище через соответствующие слайсы (`ordersSlice` и `productsSlice`).
+---
 
+## Features Implemented
 
-## Реализованный функционал
-1. **Страница Приходы" (`OrdersPage`)**:
- * Список заказов с автоматическим расчетом сумм в USD/UAH.
- * Удаление заказа с автоматической очисткой связанных с ним продуктов.
-2. **Страница "Продукты" (`ProductsPage`):** 
-* Общий список всех товаров с деталями (тип, спецификация, гарантия, цена, привязка к приходу).
-* Рабочий фильтр товаров по типу в реальном времени.
-3. **Модальные окна:** Универсальный попап подтверждения удаления (как для заказов, так и для отдельных продуктов).
-4. **TopMenu & WebSockets:** Живые часы и счетчик активных сессий в реальном времени через Socket.io.
+1. **Architecture & State Management (Redux Toolkit):** Conforms strictly to the *Single Source of Truth* pattern. All domain logic, client side filters, dynamic content indexing, and cascading deletes (removing an order automatically sweeps its dependent products) are managed entirely within Redux slices (`ordersSlice.js` and `productsSlice.js`) using `extraReducers`.
+2. **Unique UI Pages:** Follows scalable component design principles.
+3. **Orders Page (`OrdersPage`):** Displays incoming deliveries with instant aggregated multi-currency conversions (USD/UAH) and responsive layouts. Selecting an item dynamically splits the interface to present nested items via granular presentation subcomponents (`SelectedOrderProducts`).
+4. **Products Page (`ProductsPage`):** Features a master products data grid with searchable text parameters and a real-time reactive classification selector dropdown.
+5. **Modals & Overlays:** Reusable, accessible transactional verification popups (`DeleteOrderModal`) wrapped with semantic Bootstrap fade structures and backdrop focal shading.
+6. **TopMenu Navigation:** Implements real-time structural clock routines alongside localized browser instance trackers powered concurrently by active client-server event listening routines on `Socket.io`.
