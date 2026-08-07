@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectOrders,
@@ -13,19 +13,24 @@ import {
 import OrderCard from "../features/orders/components/OrderCard";
 import DeleteOrderModal from "../features/orders/components/DeleteOrderModal";
 import SelectedOrderProducts from "../features/orders/components/SelectedOrderProducts";
+import { Order, Product } from "../types/types";
 import "./OrdersPage.scss";
 
-const OrdersPage = () => {
+type DeleteType = "order" | "product" | "";
+
+interface OrdersPageProps {
+  pageTitle?: string;
+}
+
+const OrdersPage: React.FC<OrdersPageProps> = ({ pageTitle }) => {
   const dispatch = useDispatch();
+  const orders = useSelector(selectOrders) as Order[];
+  const products = useSelector(selectProducts) as Product[];
+  const selectedOrderId = useSelector(selectSelectedOrderId) as string | number | null;
 
-
-  const orders = useSelector(selectOrders);
-  const products = useSelector(selectProducts);
-  const selectedOrderId = useSelector(selectSelectedOrderId);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState(null);
-  const [deleteType, setDeleteType] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [itemToDelete, setItemToDelete] = useState<Order | Product | null>(null);
+  const [deleteType, setDeleteType] = useState<DeleteType>("");
 
   const selectedOrder = useMemo(() => {
     return orders.find((o) => o.id === selectedOrderId);
@@ -37,14 +42,14 @@ const OrdersPage = () => {
 
   const isCompressed = Boolean(selectedOrderId);
 
-  const handleOrderDeleteClick = (e, order) => {
+  const handleOrderDeleteClick = (e: React.MouseEvent<HTMLButtonElement>, order: Order) => {
     e.stopPropagation();
     setItemToDelete(order);
     setDeleteType("order");
     setIsModalOpen(true);
   };
 
-  const handleProductDeleteClick = (e, product) => {
+  const handleProductDeleteClick = (e: React.MouseEvent<HTMLButtonElement>, product: Product) => {
     e.stopPropagation();
     setItemToDelete(product);
     setDeleteType("product");
@@ -60,7 +65,6 @@ const OrdersPage = () => {
     } else if (deleteType === "product") {
       dispatch(removeProduct(targetId));
     }
-
     handleCloseModal();
   };
 
@@ -80,10 +84,10 @@ const OrdersPage = () => {
           +
         </button>
         <h2 className="orders-page__title m-0 fw-bold text-dark">
-          Delivery / {orders.length}
+          {pageTitle || "Delivery"} / {orders.length}
         </h2>
       </div>
-
+      
       <div className="orders-page__body row g-4 flex-nowrap m-0">
         <div
           className={`orders-page__column-left ${
@@ -103,35 +107,40 @@ const OrdersPage = () => {
             ))}
           </div>
         </div>
-
         {isCompressed && selectedOrder && (
           <div className="orders-page__column-right col-md-8 p-0 ps-3">
             <SelectedOrderProducts
               selectedOrder={selectedOrder}
               selectedOrderProducts={selectedOrderProducts}
-              handleAddProduct={() => dispatch(addProduct(selectedOrderId))}
+              handleAddProduct={() => {
+                if (selectedOrderId !== null) {
+                  dispatch(addProduct(selectedOrderId));
+                }
+              }}
               handleProductDeleteClick={handleProductDeleteClick}
               onClose={() => dispatch(setSelectedOrderId(null))}
             />
           </div>
         )}
       </div>
-
+      
       <DeleteOrderModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={confirmDelete}
         orderTitle={
           deleteType === "order"
-            ? itemToDelete?.title
-            : `Продукт: ${itemToDelete?.title}`
+            ? (itemToDelete as Order)?.title
+            : itemToDelete
+            ? `Продукт: ${(itemToDelete as Product)?.title}`
+            : undefined
         }
         products={
           deleteType === "order"
             ? selectedOrderProducts
             : itemToDelete
-              ? [itemToDelete]
-              : []
+            ? [itemToDelete as Product]
+            : []
         }
       />
     </div>

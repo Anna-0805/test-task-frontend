@@ -1,4 +1,15 @@
-const SelectedOrderProducts = ({
+import React from "react";
+import { Order, Product } from "../../../types/types";
+
+interface SelectedOrderProductsProps {
+  selectedOrder: Order;
+  selectedOrderProducts: Product[];
+  handleAddProduct: (e: React.MouseEvent<HTMLDivElement>) => void;
+  handleProductDeleteClick: (e: React.MouseEvent<HTMLButtonElement>, product: Product) => void;
+  onClose: () => void;
+}
+
+const SelectedOrderProducts: React.FC<SelectedOrderProductsProps> = ({
   selectedOrder,
   selectedOrderProducts,
   handleAddProduct,
@@ -7,20 +18,18 @@ const SelectedOrderProducts = ({
 }) => {
   return (
     <div className="orders-page__details card border-0 shadow-sm p-4 bg-white">
-      <button
-        className="orders-page__details-close-btn btn position-absolute"
+      <button 
+        className="orders-page__details-close-btn btn position-absolute" 
         onClick={onClose}
       >
         ✕
       </button>
-
       <h4 className="orders-page__details-title fw-bold text-dark mb-3 text-start">
         {selectedOrder.title}
       </h4>
-
-      <div
-        className="orders-page__add-product-wrapper d-flex align-items-center gap-2 mb-4"
-        style={{ cursor: "pointer" }}
+      <div 
+        className="orders-page__add-product-wrapper d-flex align-items-center gap-2 mb-4" 
+        style={{ cursor: "pointer" }} 
         onClick={(e) => handleAddProduct(e)}
       >
         <button className="orders-page__add-btn orders-page__add-btn--small btn d-flex align-items-center justify-content-center rounded-circle p-0">
@@ -30,19 +39,18 @@ const SelectedOrderProducts = ({
           Add Product
         </span>
       </div>
-
       <div className="d-flex flex-column gap-2">
         {selectedOrderProducts.map((product) => (
-          <div
-            key={product.id}
+          <div 
+            key={product.id} 
             className="orders-page__product-item d-flex align-items-center justify-content-between py-2 border-bottom border-light"
           >
             <div className="d-flex align-items-center gap-4 flex-grow-1">
               <span className="text-success p-cell__dot--small">●</span>
-              <img
-                src={product.photo || "/logo.png"}
-                alt={product.title}
-                className="orders-page__product-img-thumb"
+              <img 
+                src={product.photo || "/logo.png"} 
+                alt={product.title} 
+                className="orders-page__product-img-thumb" 
               />
               <div>
                 <div className="orders-page__product-title-text fw-medium text-dark text-decoration-underline">
@@ -53,13 +61,11 @@ const SelectedOrderProducts = ({
                 </div>
               </div>
             </div>
-
             <div className="text-success small fw-medium px-4 orders-page__product-status-text">
               Free
             </div>
-
-            <button
-              className="btn btn-link text-secondary p-1 border-0 bg-transparent opacity-50 orders-page__product-delete-btn"
+            <button 
+              className="btn btn-link text-secondary p-1 border-0 bg-transparent opacity-50 orders-page__product-delete-btn" 
               onClick={(e) => handleProductDeleteClick(e, product)}
             >
               <img src="/trash.svg" alt="trash" />

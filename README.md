@@ -10,7 +10,7 @@ This is a Single-Page Application (SPA) built for managing orders and products, 
 
 ## Tech Stack
 
-**Frontend:** React.js, Redux Toolkit, React Router v6, Bootstrap 5, SCSS, Framer Motion
+**Frontend:** React.js, TypeScript, Redux Toolkit, React Router v6, Bootstrap 5, SCSS, Vite
 **Backend/Realtime:** Node.js, Socket.io (Active sessions counter)
 **DevOps:** Docker, Docker Compose
 
@@ -58,7 +58,7 @@ Open your first terminal window and navigate to the server directory:
 ```bash
 cd server
 npm install
-node index.js
+node server.js
 ```
 *The server will start listening for socket connections on `http://localhost:3001`.*
 
@@ -74,8 +74,8 @@ npm run dev
 
 ## Features Implemented
 
-1. **Architecture & State Management (Redux Toolkit):** Conforms strictly to the *Single Source of Truth* pattern. All domain logic, client side filters, dynamic content indexing, and cascading deletes (removing an order automatically sweeps its dependent products) are managed entirely within Redux slices (`ordersSlice.js` and `productsSlice.js`) using `extraReducers`.
-2. **Unique UI Pages:** Follows scalable component design principles.
+1. **Architecture & State Management (Redux Toolkit):** Conforms strictly to the *Single Source of Truth* pattern. All domain logic, client-side filters, dynamic content indexing, and cascading deletes (removing an order automatically sweeps its dependent products) are managed entirely within Redux slices using strict TypeScript typing.
+2. **Type Safety (TypeScript):** Fully refactored frontend codebase with explicit declarations for components, interfaces (`Product`, `Order`), React synthetic mouse events, and prop validation.
 3. **Orders Page (`OrdersPage`):** Displays incoming deliveries with instant aggregated multi-currency conversions (USD/UAH) and responsive layouts. Selecting an item dynamically splits the interface to present nested items via granular presentation subcomponents (`SelectedOrderProducts`).
 4. **Products Page (`ProductsPage`):** Features a master products data grid with searchable text parameters and a real-time reactive classification selector dropdown.
 5. **Modals & Overlays:** Reusable, accessible transactional verification popups (`DeleteOrderModal`) wrapped with semantic Bootstrap fade structures and backdrop focal shading.

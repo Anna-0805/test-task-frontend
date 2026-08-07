@@ -1,4 +1,10 @@
-const Placeholder = ({ title }) => {
+import React from "react";
+
+interface PlaceholderProps {
+  title: string;
+}
+
+const Placeholder: React.FC<PlaceholderProps> = ({ title }) => {
   return (
     <div className="container-fluid p-4">
       <h2 className="fw-bold text-dark mb-4">{title} / 0</h2>

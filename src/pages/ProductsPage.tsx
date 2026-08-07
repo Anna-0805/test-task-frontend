@@ -1,32 +1,30 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectProducts,
-  selectOrders,
-  removeProduct,
-} from "../store";
+import { selectProducts, selectOrders, removeProduct } from "../store";
 import DeleteOrderModal from "../features/orders/components/DeleteOrderModal";
 import ProductList from "../features/products/components/ProductList";
+import { Order, Product } from "../types/types";
 import "./ProductsPage.scss";
 
-const ProductsPage = () => {
+const ProductsPage: React.FC = () => {
   const dispatch = useDispatch();
+  
+  const products = useSelector(selectProducts) as Product[];
+  const orders = useSelector(selectOrders) as Order[];
 
-  const products = useSelector(selectProducts);
-  const orders = useSelector(selectOrders);
+  const [selectedType, setSelectedType] = useState<string>("All");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  
+  const [productToDelete, setProductToDelete] = useState<Product | null>(null);
 
-  const [selectedType, setSelectedType] = useState("All");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [productToDelete, setProductToDelete] = useState(null);
-
-  const productTypes = ["All", ...new Set(products.map((p) => p.type))];
+  const productTypes: string[] = ["All", ...new Set(products.map((p) => p.type))];
 
   const filteredProducts =
     selectedType === "All"
       ? products
       : products.filter((p) => p.type === selectedType);
 
-  const handleProductDeleteClick = (e, product) => {
+  const handleProductDeleteClick = (e: React.MouseEvent<HTMLButtonElement>, product: Product) => {
     e.stopPropagation();
     setProductToDelete(product);
     setIsModalOpen(true);
@@ -50,7 +48,6 @@ const ProductsPage = () => {
         <h2 className="products-page__title fw-bold text-dark m-0">
           Products / {filteredProducts.length}
         </h2>
-
         <div className="d-flex align-items-center gap-4">
           <div className="d-flex align-items-center gap-2">
             <span className="text-secondary small fw-medium">Type:</span>
@@ -66,7 +63,6 @@ const ProductsPage = () => {
               ))}
             </select>
           </div>
-
           <div className="d-flex align-items-center gap-2">
             <span className="text-secondary small fw-medium">
               Specification:
@@ -80,7 +76,6 @@ const ProductsPage = () => {
           </div>
         </div>
       </div>
-
       <div className="products-page__table-wrapper w-100 overflow-auto border rounded">
         <ProductList
           filteredProducts={filteredProducts}
@@ -88,7 +83,6 @@ const ProductsPage = () => {
           handleProductDeleteClick={handleProductDeleteClick}
         />
       </div>
-
       <DeleteOrderModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}

@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import { io } from "socket.io-client";
+import React, { useState, useEffect } from "react";
+import { io, Socket } from "socket.io-client";
 import { DAYS_EN } from "../../utils/constants";
 import "./TopMenu.scss";
 
-const TopMenu = () => {
-  const [time, setTime] = useState(new Date());
-  const [activeSession, setActiveSession] = useState(1);
+const TopMenu: React.FC = () => {
+  const [time, setTime] = useState<Date>(new Date());
+  const [activeSession, setActiveSession] = useState<number>(1);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -15,26 +15,28 @@ const TopMenu = () => {
   }, []);
 
   useEffect(() => {
-    const socket = io("http://localhost:3001");
-    socket.on("activeSessions", (count) => {
+    const socket: Socket = io("http://localhost:3001");
+
+    socket.on("activeSessions", (count: number) => {
       setActiveSession(count);
     });
+
     return () => {
       socket.disconnect();
     };
   }, []);
 
-  const currentDayEn = DAYS_EN[time.getDay()];
-
-  const dayStr = time.getDate().toString().padStart(2, "0");
-  const monthStr = time
+  const currentDayEn: string = (DAYS_EN as string[])[time.getDay()];
+  const dayStr: string = time.getDate().toString().padStart(2, "0");
+  const monthStr: string = time
     .toLocaleDateString("en-US", { month: "short" })
     .replace(".", "");
-  const formattedMonth = monthStr.charAt(0).toUpperCase() + monthStr.slice(1);
-  const yearStr = time.getFullYear();
-
-  const formattedDate = `${dayStr} ${formattedMonth}, ${yearStr}`;
-  const formattedTime = time.toLocaleTimeString("ru-RU", {
+  
+  const formattedMonth: string = monthStr.charAt(0).toUpperCase() + monthStr.slice(1);
+  const yearStr: number = time.getFullYear();
+  const formattedDate: string = `${dayStr} ${formattedMonth}, ${yearStr}`;
+  
+  const formattedTime: string = time.toLocaleTimeString("ru-RU", {
     hour: "2-digit",
     minute: "2-digit",
   });
@@ -49,7 +51,7 @@ const TopMenu = () => {
           INVENTORY
         </span>
       </div>
-
+      
       <div className="top-menu__search-block">
         <input
           type="text"
@@ -57,15 +59,14 @@ const TopMenu = () => {
           placeholder="Search"
         />
       </div>
-
+      
       <div className="top-menu__right-side d-flex align-items-center gap-4 ms-auto">
         <div className="top-menu__sessions text-muted small">
           Sessions: <span className="fw-bold text-dark">{activeSession}</span>
         </div>
-
+        
         <div className="top-menu__time-block text-start d-flex flex-column justify-content-center">
           <div className="top-menu__date-row text-muted">{currentDayEn}</div>
-
           <div className="top-menu__time-row d-flex align-items-center gap-2 mt-1">
             <span className="top-menu__date-text text-dark fw-medium">
               {formattedDate}

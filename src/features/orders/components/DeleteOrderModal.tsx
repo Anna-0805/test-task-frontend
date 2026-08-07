@@ -1,5 +1,22 @@
 
-const DeleteOrderModal = ({
+import React from "react";
+
+interface Product {
+  id?: string | number;
+  photo?: string;
+  title?: string;
+  serialNumber?: string | number;
+}
+
+interface DeleteOrderModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  orderTitle?: string;
+  products?: Product[];
+}
+
+const DeleteOrderModal: React.FC<DeleteOrderModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
@@ -11,10 +28,9 @@ const DeleteOrderModal = ({
   return (
     <>
       <div className="modal-backdrop fade show" style={{ zIndex: 1040 }}></div>
-
       <div
         className="orders-popup modal fade show d-block"
-        tabIndex="-1"
+        tabIndex={-1} 
         role="dialog"
         style={{ zIndex: 1050 }}
       >
@@ -27,12 +43,10 @@ const DeleteOrderModal = ({
             >
               ✕
             </button>
-
             <div className="modal-body p-4 bg-white orders-popup__body">
               <h5 className="orders-popup__title fw-bold text-dark mb-4">
                 Are you sure you want to delete {orderTitle || "this delivery"}?
               </h5>
-
               <div className="orders-popup__products-list d-flex flex-column gap-2">
                 {products.map((product, index) => (
                   <div
@@ -59,7 +73,6 @@ const DeleteOrderModal = ({
                 ))}
               </div>
             </div>
-
             <div className="orders-popup__footer d-flex justify-content-end align-items-center p-3 gap-3">
               <button
                 className="orders-popup__cancel-btn btn btn-link text-secondary text-uppercase fw-bold text-decoration-none small p-0"
@@ -72,11 +85,7 @@ const DeleteOrderModal = ({
                 onClick={onConfirm}
               >
                 <span className="orders-popup__delete-icon">
-                  <img
-                    src="/trash.svg"
-                    alt="trash"
-                    className="orders-popup__trash-img"
-                  />
+                  <img src="/trash.svg" alt="trash" className="orders-popup__trash-img" />
                 </span>
                 Delete
               </button>

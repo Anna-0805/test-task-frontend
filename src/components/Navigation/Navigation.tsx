@@ -1,8 +1,14 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Navigation.scss";
 import { MENU_ITEMS } from "../../utils/constants";
 
-const Navigation = () => {
+interface MenuItem {
+  to: string;
+  label: string;
+}
+
+const Navigation: React.FC = () => {
   return (
     <div className="navigation d-flex flex-column align-items-center border-end shadow-sm">
       <div className="navigation__profile text-center position-relative w-100">
@@ -20,10 +26,9 @@ const Navigation = () => {
           </button>
         </div>
       </div>
-
       <nav className="navigation__menu w-100">
         <ul className="list-unstyled d-flex flex-column gap-3 p-0 m-0 w-100">
-          {MENU_ITEMS.map((item) => (
+          {(MENU_ITEMS as MenuItem[]).map((item) => (
             <li key={item.to} className="w-100 text-center">
               <NavLink
                 to={item.to}

@@ -1,3 +1,4 @@
+import React from "react";
 import { useDispatch } from "react-redux";
 import { setSelectedOrderId } from "../../../store";
 import {
@@ -6,7 +7,18 @@ import {
   formatDate,
 } from "../../../utils/helpers";
 
-const OrderCard = ({
+import { Order, Product } from "../../../types/types";
+
+
+interface OrderCardProps {
+  order: Order;
+  products: Product[];
+  selectedOrderId: string | number | null; 
+  isCompressed: boolean;
+  handleOrderDeleteClick: (e: React.MouseEvent<HTMLButtonElement>, order: Order) => void;
+}
+
+const OrderCard: React.FC<OrderCardProps> = ({
   order,
   products,
   selectedOrderId,
@@ -14,12 +26,10 @@ const OrderCard = ({
   handleOrderDeleteClick,
 }) => {
   const dispatch = useDispatch();
-
   const count = getOrderProductsCount(order.id, products);
   const totalUSD = calculateOrderTotal(order.id, products, "USD");
   const totalUAH = calculateOrderTotal(order.id, products, "UAH");
   const { short: dateShort, full: dateFull } = formatDate(order.date);
-
   const isActive = selectedOrderId === order.id;
 
   return (
@@ -31,10 +41,9 @@ const OrderCard = ({
     >
       {!isCompressed && (
         <div className="orders-page__card-title fw-medium text-secondary text-decoration-underline text-start">
-          {order.title}
+          order.title
         </div>
       )}
-
       <div className="orders-page__card-menu d-flex align-items-center gap-3">
         <button className="orders-page__menu-btn btn d-flex align-items-center justify-content-center p-0 border border-secondary-subtle rounded-circle">
           ☰
@@ -46,12 +55,10 @@ const OrderCard = ({
           </div>
         </div>
       </div>
-
       <div className="orders-page__card-date text-center small text-secondary">
         <div className="orders-page__date-short text-muted">{dateShort}</div>
         <div className="orders-page__date-full text-dark">{dateFull}</div>
       </div>
-
       {!isCompressed && (
         <div className="orders-page__card-price text-start">
           <div className="orders-page__price-usd text-muted small">
@@ -62,7 +69,6 @@ const OrderCard = ({
           </div>
         </div>
       )}
-
       {!isCompressed && (
         <div className="orders-page__card-delete text-end">
           <button
@@ -73,7 +79,6 @@ const OrderCard = ({
           </button>
         </div>
       )}
-
       {isCompressed && isActive && (
         <div className="orders-page__card-arrow d-flex align-items-center justify-content-center">
           ❯
