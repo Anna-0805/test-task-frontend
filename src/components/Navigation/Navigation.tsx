@@ -28,7 +28,7 @@ const Navigation: React.FC = () => {
       </div>
       <nav className="navigation__menu w-100">
         <ul className="list-unstyled d-flex flex-column gap-3 p-0 m-0 w-100">
-          {(MENU_ITEMS as MenuItem[]).map((item) => (
+          {(MENU_ITEMS).map((item) => (
             <li key={item.to} className="w-100 text-center">
               <NavLink
                 to={item.to}

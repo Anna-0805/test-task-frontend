@@ -41,7 +41,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
     >
       {!isCompressed && (
         <div className="orders-page__card-title fw-medium text-secondary text-decoration-underline text-start">
-          order.title
+          {order.title}
         </div>
       )}
       <div className="orders-page__card-menu d-flex align-items-center gap-3">

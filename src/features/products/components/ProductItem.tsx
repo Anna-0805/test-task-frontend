@@ -14,9 +14,9 @@ const ProductItem: React.FC<ProductItemProps> = ({
   orderTitle, 
   onDeleteClick 
 }) => {
-  const guaranteeStart = formatDate(product?.guarantee?.start || "") as unknown as FormattedDate;
-  const guaranteeEnd = formatDate(product?.guarantee?.end || "") as unknown as FormattedDate;
-  const productDate = formatDate(product?.date || "") as unknown as FormattedDate;
+  const guaranteeStart = formatDate(product?.guarantee?.start);
+  const guaranteeEnd = formatDate(product?.guarantee?.end);
+  const productDate = formatDate(product?.date);
 
   const usdPrice = product?.price?.find((p) => p.symbol === "USD")?.value || 0;
   const uahPrice = (

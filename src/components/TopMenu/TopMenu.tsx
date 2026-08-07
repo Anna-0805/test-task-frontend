@@ -26,7 +26,7 @@ const TopMenu: React.FC = () => {
     };
   }, []);
 
-  const currentDayEn: string = (DAYS_EN as string[])[time.getDay()];
+  const currentDayEn: string = DAYS_EN[time.getDay()];
   const dayStr: string = time.getDate().toString().padStart(2, "0");
   const monthStr: string = time
     .toLocaleDateString("en-US", { month: "short" })

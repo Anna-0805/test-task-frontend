@@ -1,4 +1,6 @@
-export const initialOrders = [
+import { Order, Product } from "../types/types";
+
+export const initialOrders: Order[] = [
   {
     id: 1,
     title: "Order 1",
@@ -19,7 +21,7 @@ export const initialOrders = [
   },
 ];
 
-export const initialProducts = [
+export const initialProducts: Product[] = [
   {
     id: 1,
     serialNumber: 1234,
@@ -27,7 +29,6 @@ export const initialProducts = [
     photo: "pathToFile.jpg",
     title: "Product 1",
     type: "Monitors",
-    specification: "Specification 1",
     guarantee: {
       start: "2017-06-29 12:09:33",
       end: "2017-06-29 12:09:33",
@@ -46,7 +47,6 @@ export const initialProducts = [
     photo: "pathToFile.jpg",
     title: "Product 1",
     type: "Monitors",
-    specification: "Specification 1",
     guarantee: {
       start: "2017-06-29 12:09:33",
       end: "2017-06-29 12:09:33",

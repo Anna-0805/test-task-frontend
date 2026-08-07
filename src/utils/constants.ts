@@ -1,4 +1,4 @@
-export const DAYS_EN = [
+export const DAYS_EN: string[] = [
   "Sunday",
   "Monday",
   "Tuesday",
@@ -8,7 +8,12 @@ export const DAYS_EN = [
   "Saturday",
 ];
 
-export const MENU_ITEMS = [
+export interface MenuItem {
+  to: string;
+  label: string;
+}
+
+export const MENU_ITEMS: MenuItem[] = [
   { to: "/orders", label: "Delivery" },
   { to: "/groups", label: "Groups" },
   { to: "/products", label: "Products" },
