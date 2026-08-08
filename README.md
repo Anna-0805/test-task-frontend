@@ -6,7 +6,7 @@ This is a Single-Page Application (SPA) built for managing orders and products, 
 
 
 **Link to the project demonstration video:**
- https://drive.google.com/file/d/1w8XFilF78bUrvp757H8_ym0OjXa_R6OP/view?usp=sharing
+ https://drive.google.com/file/d/1C_CyGFft_fKSN8OCJphzuDB_aaOHMCGD/view?usp=sharing
 
 ## Tech Stack
 
