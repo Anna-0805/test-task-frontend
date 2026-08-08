@@ -15,7 +15,10 @@ const TopMenu: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const socket: Socket = io("http://localhost:3001");
+    const socket: Socket = io("https://socket-server-qcz4.onrender.com", {
+      transports: ["websocket", "polling"],
+      secure: true
+    });
 
     socket.on("activeSessions", (count: number) => {
       setActiveSession(count);
@@ -24,7 +27,7 @@ const TopMenu: React.FC = () => {
     return () => {
       socket.disconnect();
     };
-  }, []);
+}, []);
 
   const currentDayEn: string = DAYS_EN[time.getDay()];
   const dayStr: string = time.getDate().toString().padStart(2, "0");
