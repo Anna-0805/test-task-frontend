@@ -15,7 +15,7 @@ app.use(
 
 const io = new Server(httpServer, {
   cors: {
-    origin: ["https://test-task-frontend-eta.vercel.app", "http://localhost:5173"],
+    transports: ["websocket", "polling"],
     methods: ['GET', 'POST'],
     credentials: true 
   },
