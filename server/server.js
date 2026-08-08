@@ -15,9 +15,11 @@ app.use(
 
 const io = new Server(httpServer, {
   cors: {
-    origin: '*',
+    origin: ["https://vercel.app", "http://localhost:5173"],
     methods: ['GET', 'POST'],
+    credentials: true 
   },
+  allowEIO3: true
 });
 
 let activeSessions = 0;
