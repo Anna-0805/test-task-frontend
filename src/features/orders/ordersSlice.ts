@@ -40,9 +40,9 @@ const ordersSlice = createSlice({
       
       state.entities.push({
         id: nextId,
-        title: `Long name of the delivery ${nextId}`,
+        title: `Long name of the order ${nextId}`,
         date: new Date().toISOString().replace("T", " ").substring(0, 19),
-        description: "New test delivery",
+        description: "New test order",
       });
     },
   },

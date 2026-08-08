@@ -55,13 +55,13 @@ const ProductItem: React.FC<ProductItemProps> = ({
       </div>
       <div className="p-cell p-cell--guarantee text-start d-flex flex-column justify-content-center">
         <div className="p-cell__guarantee-row">
-          <span className="text-muted me-1">с</span>
+          <span className="text-muted me-1">from</span>
           <span className="text-dark fw-medium">
             {guaranteeStart?.full || "—"}
           </span>
         </div>
         <div className="p-cell__guarantee-row">
-          <span className="text-muted me-1">по</span>
+          <span className="text-muted me-1">to</span>
           <span className="text-dark fw-medium">
             {guaranteeEnd?.full || "—"}
           </span>

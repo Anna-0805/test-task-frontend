@@ -16,6 +16,7 @@ interface OrderCardProps {
   selectedOrderId: string | number | null; 
   isCompressed: boolean;
   handleOrderDeleteClick: (e: React.MouseEvent<HTMLButtonElement>, order: Order) => void;
+  pageTitle?: string;
 }
 
 const OrderCard: React.FC<OrderCardProps> = ({
@@ -24,20 +25,28 @@ const OrderCard: React.FC<OrderCardProps> = ({
   selectedOrderId,
   isCompressed,
   handleOrderDeleteClick,
+  pageTitle,
 }) => {
   const dispatch = useDispatch();
   const count = getOrderProductsCount(order.id, products);
   const totalUSD = calculateOrderTotal(order.id, products, "USD");
   const totalUAH = calculateOrderTotal(order.id, products, "UAH");
-  const { short: dateShort, full: dateFull } = formatDate(order.date);
+  const dateString = order.date instanceof Date ? order.date.toISOString() : String(order.date);
+  const { short: dateShort, full: dateFull } = formatDate(dateString);
   const isActive = selectedOrderId === order.id;
+
+  const handleCardClick = () => {
+    if (pageTitle === "Groups") {
+      dispatch(setSelectedOrderId(order.id));
+    }
+  };
 
   return (
     <div
       className={`orders-page__card d-flex flex-row align-items-center justify-content-between position-relative ${
         isActive ? "orders-page__card--active" : ""
       } ${isCompressed ? "orders-page__card--compressed" : ""}`}
-      onClick={() => dispatch(setSelectedOrderId(order.id))}
+      onClick={handleCardClick}
     >
       {!isCompressed && (
         <div className="orders-page__card-title fw-medium text-secondary text-decoration-underline text-start">

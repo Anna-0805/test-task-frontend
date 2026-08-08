@@ -39,13 +39,13 @@ const DeleteOrderModal: React.FC<DeleteOrderModalProps> = ({
             <button
               className="orders-popup__close-btn btn position-absolute"
               onClick={onClose}
-              aria-label="Закрыть"
+              aria-label="Close"
             >
               ✕
             </button>
             <div className="modal-body p-4 bg-white orders-popup__body">
               <h5 className="orders-popup__title fw-bold text-dark mb-4">
-                Are you sure you want to delete {orderTitle || "this delivery"}?
+                Are you sure you want to delete {orderTitle || "this order"}?
               </h5>
               <div className="orders-popup__products-list d-flex flex-column gap-2">
                 {products.map((product, index) => (

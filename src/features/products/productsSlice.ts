@@ -34,11 +34,13 @@ const productsSlice = createSlice({
       const nextProductId = maxId + 1;
       const randomSN = Math.floor(1000 + Math.random() * 9000);
 
+      const nextPhoto = nextProductId % 2 === 0 ? "/Monitor1.jpg" : "/Monitor2.jpg";
+
       state.entities.push({
         id: nextProductId,
         serialNumber: randomSN,
         isNew: 1,
-        photo: "/logo.png",
+        photo: nextPhoto,
         title: `Product ${nextProductId}`,
         type: "Monitors",
         guarantee: {

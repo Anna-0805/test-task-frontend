@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectOrders,
@@ -20,9 +20,10 @@ type DeleteType = "order" | "product" | "";
 
 interface OrdersPageProps {
   pageTitle?: string;
+  searchQuery: string; 
 }
 
-const OrdersPage: React.FC<OrdersPageProps> = ({ pageTitle }) => {
+const OrdersPage: React.FC<OrdersPageProps> = ({ pageTitle, searchQuery }) => {
   const dispatch = useDispatch();
   const orders = useSelector(selectOrders) as Order[];
   const products = useSelector(selectProducts) as Product[];
@@ -32,7 +33,25 @@ const OrdersPage: React.FC<OrdersPageProps> = ({ pageTitle }) => {
   const [itemToDelete, setItemToDelete] = useState<Order | Product | null>(null);
   const [deleteType, setDeleteType] = useState<DeleteType>("");
 
-  const selectedOrder = useMemo(() => {
+
+  useEffect(() => {
+    dispatch(setSelectedOrderId(null));
+
+     return () => {
+      dispatch(setSelectedOrderId(null));
+    };
+  }, [pageTitle, dispatch]);
+
+   const filteredOrders = useMemo(() => {
+     return orders.filter((order) => {
+       if (!order || typeof order.title !== "string") {
+         return false;
+         }
+       return order.title.toLowerCase().includes((searchQuery || "").toLowerCase());
+  });
+  }, [orders, searchQuery]);
+
+    const selectedOrder = useMemo(() => {
     return orders.find((o) => o.id === selectedOrderId);
   }, [orders, selectedOrderId]);
 
@@ -40,7 +59,7 @@ const OrdersPage: React.FC<OrdersPageProps> = ({ pageTitle }) => {
     return products.filter((p) => p.order === selectedOrderId);
   }, [products, selectedOrderId]);
 
-  const isCompressed = Boolean(selectedOrderId);
+  const isCompressed = pageTitle === "Groups" && Boolean(selectedOrderId);
 
   const handleOrderDeleteClick = (e: React.MouseEvent<HTMLButtonElement>, order: Order) => {
     e.stopPropagation();
@@ -74,7 +93,7 @@ const OrdersPage: React.FC<OrdersPageProps> = ({ pageTitle }) => {
     setDeleteType("");
   };
 
-  return (
+   return (
     <div className="orders-page container-fluid p-0">
       <div className="orders-page__header d-flex align-items-center gap-3 mb-4">
         <button
@@ -84,7 +103,7 @@ const OrdersPage: React.FC<OrdersPageProps> = ({ pageTitle }) => {
           +
         </button>
         <h2 className="orders-page__title m-0 fw-bold text-dark">
-          {pageTitle || "Delivery"} / {orders.length}
+          {pageTitle || "Order"} / {filteredOrders.length}
         </h2>
       </div>
       
@@ -95,7 +114,8 @@ const OrdersPage: React.FC<OrdersPageProps> = ({ pageTitle }) => {
           }`}
         >
           <div className="d-flex flex-column gap-2 pe-2">
-            {orders.map((order) => (
+            {filteredOrders.length > 0 ? (
+              filteredOrders.map((order) => (
               <OrderCard
                 key={order.id}
                 order={order}
@@ -103,8 +123,14 @@ const OrdersPage: React.FC<OrdersPageProps> = ({ pageTitle }) => {
                 selectedOrderId={selectedOrderId}
                 isCompressed={isCompressed}
                 handleOrderDeleteClick={handleOrderDeleteClick}
+                pageTitle={pageTitle}
               />
-            ))}
+              ))
+            ) : (
+            <div className="p-4 text-center text-muted border rounded bg-white">
+                No orders found matching your request.
+              </div>
+            )}
           </div>
         </div>
         {isCompressed && selectedOrder && (
@@ -132,7 +158,7 @@ const OrdersPage: React.FC<OrdersPageProps> = ({ pageTitle }) => {
           deleteType === "order"
             ? (itemToDelete as Order)?.title
             : itemToDelete
-            ? `Продукт: ${(itemToDelete as Product)?.title}`
+            ? `Products: ${(itemToDelete as Product)?.title}`
             : undefined
         }
         products={

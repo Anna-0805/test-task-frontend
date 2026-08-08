@@ -6,7 +6,11 @@ import ProductList from "../features/products/components/ProductList";
 import { Order, Product } from "../types/types";
 import "./ProductsPage.scss";
 
-const ProductsPage: React.FC = () => {
+interface ProductsPageProps {
+  searchQuery: string;
+}
+
+const ProductsPage:  React.FC<ProductsPageProps> = ({ searchQuery }) => {
   const dispatch = useDispatch();
   
   const products = useSelector(selectProducts) as Product[];
@@ -19,12 +23,16 @@ const ProductsPage: React.FC = () => {
 
   const productTypes: string[] = ["All", ...new Set(products.map((p) => p.type))];
 
-  const filteredProducts =
-    selectedType === "All"
-      ? products
-      : products.filter((p) => p.type === selectedType);
+ const filteredProducts = products.filter((product) => {
+   const matchesType = selectedType === "All" || product.type === selectedType;
+   const matchesSearch = product.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
 
-  const handleProductDeleteClick = (e: React.MouseEvent<HTMLButtonElement>, product: Product) => {
+    return matchesType && matchesSearch;
+  });
+  
+    const handleProductDeleteClick = (e: React.MouseEvent<HTMLButtonElement>, product: Product) => {
     e.stopPropagation();
     setProductToDelete(product);
     setIsModalOpen(true);
@@ -77,11 +85,15 @@ const ProductsPage: React.FC = () => {
         </div>
       </div>
       <div className="products-page__table-wrapper w-100 overflow-auto border rounded">
-        <ProductList
-          filteredProducts={filteredProducts}
-          orders={orders}
-          handleProductDeleteClick={handleProductDeleteClick}
-        />
+         {filteredProducts.length > 0 ? (
+           <ProductList
+             filteredProducts={filteredProducts}
+             orders={orders}
+             handleProductDeleteClick={handleProductDeleteClick}
+           />
+          ) : (
+          <div className="p-4 text-center text-muted">No products found matching your search.</div>
+        )}
       </div>
       <DeleteOrderModal
         isOpen={isModalOpen}

@@ -20,7 +20,7 @@ const Navigation: React.FC = () => {
           />
           <button
             className="navigation__settings-btn btn p-0 d-flex align-items-center justify-content-center rounded-circle"
-            aria-label="Настройки профиля"
+            aria-label="Profile settings"
           >
             ⚙️
           </button>

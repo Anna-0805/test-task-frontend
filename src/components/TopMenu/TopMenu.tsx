@@ -3,7 +3,12 @@ import { io, Socket } from "socket.io-client";
 import { DAYS_EN } from "../../utils/constants";
 import "./TopMenu.scss";
 
-const TopMenu: React.FC = () => {
+interface TopMenuProps {
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+}
+
+const TopMenu: React.FC<TopMenuProps> = ({ searchQuery, setSearchQuery }) => {
   const [time, setTime] = useState<Date>(new Date());
   const [activeSession, setActiveSession] = useState<number>(1);
 
@@ -17,14 +22,23 @@ const TopMenu: React.FC = () => {
   useEffect(() => {
     const socket: Socket = io("https://socket-server-qcz4.onrender.com", {
       transports: ["websocket", "polling"],
-      secure: true
+      secure: true,
+      autoConnect: true,
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 2000,
     });
+
+     socket.on("connect", () => {
+    console.log("WebSocket successfully connected!");
+  });
 
     socket.on("activeSessions", (count: number) => {
       setActiveSession(count);
     });
 
     return () => {
+      socket.off("activeSessions");
       socket.disconnect();
     };
 }, []);
@@ -60,6 +74,8 @@ const TopMenu: React.FC = () => {
           type="text"
           className="top-menu__search-input form-control form-control-sm border-secondary-subtle"
           placeholder="Search"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
       

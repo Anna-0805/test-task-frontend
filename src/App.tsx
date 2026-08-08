@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import TopMenu from "./components/TopMenu";
 import Navigation from "./components/Navigation";
@@ -8,20 +8,21 @@ import PlaceholderPage from "./pages/PlaceholderPage";
 import "./App.css";
 
 const App: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState<string>("");
   return (
     <Router>
       <div className="app-wrapper">
-        <TopMenu />
+        <TopMenu searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <div className="app-main-content">
           <Navigation />
           <div className="app-page-view">
             <Routes>
               <Route path="/" element={<Navigate to="/orders" replace />} />
-              <Route path="/orders" element={<OrdersPage />} />
-              <Route path="/products" element={<ProductsPage />} />
-              <Route path="/groups" element={<OrdersPage pageTitle="Группы" />} />
-              <Route path="/users" element={<PlaceholderPage title="Пользователи" />} />
-              <Route path="/settings" element={<PlaceholderPage title="Настройки" />} />
+              <Route path="/orders" element={<OrdersPage searchQuery={searchQuery} />} />
+              <Route path="/products" element={<ProductsPage searchQuery={searchQuery} />} />
+              <Route path="/groups" element={<OrdersPage pageTitle="Groups" />} />
+              <Route path="/users" element={<PlaceholderPage title="Users" />} />
+              <Route path="/settings" element={<PlaceholderPage title="Settings" />} />
             </Routes>
           </div>
         </div>

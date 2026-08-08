@@ -26,7 +26,7 @@ export const initialProducts: Product[] = [
     id: 1,
     serialNumber: 1234,
     isNew: 1,
-    photo: "pathToFile.jpg",
+    photo: "Monitor1.jpg",
     title: "Product 1",
     type: "Monitors",
     guarantee: {
@@ -44,7 +44,7 @@ export const initialProducts: Product[] = [
     id: 2,
     serialNumber: 1234,
     isNew: 1,
-    photo: "pathToFile.jpg",
+    photo: "Monitor2.jpg",
     title: "Product 1",
     type: "Monitors",
     guarantee: {

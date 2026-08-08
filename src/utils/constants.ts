@@ -14,7 +14,7 @@ export interface MenuItem {
 }
 
 export const MENU_ITEMS: MenuItem[] = [
-  { to: "/orders", label: "Delivery" },
+  { to: "/orders", label: "Orders" },
   { to: "/groups", label: "Groups" },
   { to: "/products", label: "Products" },
   { to: "/users", label: "Users" },
