@@ -8,6 +8,10 @@ This is a Single-Page Application (SPA) built for managing orders and products, 
 **Link to the project demonstration video:**
  https://drive.google.com/file/d/1C_CyGFft_fKSN8OCJphzuDB_aaOHMCGD/view?usp=sharing
 
+ ## Database Schema
+ The database architectural design layout :
+ [Download Database Schema (PDF)](./db_schema.pdf)
+
 ## Tech Stack
 
 **Frontend:** React.js, TypeScript, Redux Toolkit, React Router v6, Bootstrap 5, SCSS, Vite
