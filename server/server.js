@@ -14,8 +14,9 @@ app.use(
 );
 
 const io = new Server(httpServer, {
+  transports: ["websocket", "polling"],
   cors: {
-    transports: ["websocket", "polling"],
+    origin: "http://localhost:5173",
     methods: ['GET', 'POST'],
     credentials: true 
   },
