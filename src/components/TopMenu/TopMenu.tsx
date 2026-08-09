@@ -20,7 +20,7 @@ const TopMenu: React.FC<TopMenuProps> = ({ searchQuery, setSearchQuery }) => {
   }, []);
 
   useEffect(() => {
-    const socket: Socket = io("https://socket-server-qcz4.onrender.com", {
+    const socket: Socket = io("http://127.0.0.1:3001", {
       transports: ["websocket", "polling"],
       secure: true,
       autoConnect: true,
@@ -53,7 +53,7 @@ const TopMenu: React.FC<TopMenuProps> = ({ searchQuery, setSearchQuery }) => {
   const yearStr: number = time.getFullYear();
   const formattedDate: string = `${dayStr} ${formattedMonth}, ${yearStr}`;
   
-  const formattedTime: string = time.toLocaleTimeString("ru-RU", {
+  const formattedTime: string = time.toLocaleTimeString("en-EN", {
     hour: "2-digit",
     minute: "2-digit",
   });

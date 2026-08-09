@@ -6,6 +6,7 @@ import {
   getOrderProductsCount,
   formatDate,
 } from "../../../utils/helpers";
+import { AppDispatch } from "../../../store"; 
 
 import { Order, Product } from "../../../types/types";
 
@@ -27,7 +28,7 @@ const OrderCard: React.FC<OrderCardProps> = ({
   handleOrderDeleteClick,
   pageTitle,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const count = getOrderProductsCount(order.id, products);
   const totalUSD = calculateOrderTotal(order.id, products, "USD");
   const totalUAH = calculateOrderTotal(order.id, products, "UAH");

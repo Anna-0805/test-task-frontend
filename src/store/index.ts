@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+// @ts-ignore
 import logger from "redux-logger";
 import orderReducer from "../features/orders/ordersSlice";
 import productReducer from "../features/products/productsSlice";
@@ -8,24 +9,26 @@ export const store = configureStore({
     orders: orderReducer,
     products: productReducer,
   },
-  middleware: (getDefaultMiddleware) => {
-    if (import.meta.env.DEV) {
-      return getDefaultMiddleware().concat(logger);
-    }
-    return getDefaultMiddleware();
-  },
+     middleware: (getDefaultMiddleware) => 
+    getDefaultMiddleware().concat(logger),
 });
 
-export {
-  removeOrder,
-  setSelectedOrderId,
-  addOrder,
-  selectOrders,
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export { 
+  setSelectedOrderId, 
+  addOrder, 
+  selectOrders, 
   selectSelectedOrderId,
-} from "../features/orders/ordersSlice";
+  fetchOrders,
+  deleteOrderOnServer
+} from "../features/orders/ordersSlice"; 
+
 
 export {
   removeProduct,
   addProduct,
   selectProducts,
+  fetchProducts
 } from "../features/products/productsSlice";

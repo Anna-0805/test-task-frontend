@@ -5,7 +5,7 @@ import {
   selectProducts,
   selectSelectedOrderId,
   setSelectedOrderId,
-  removeOrder,
+  deleteOrderOnServer,
   removeProduct,
   addOrder,
   addProduct,
@@ -14,6 +14,7 @@ import OrderCard from "../features/orders/components/OrderCard";
 import DeleteOrderModal from "../features/orders/components/DeleteOrderModal";
 import SelectedOrderProducts from "../features/orders/components/SelectedOrderProducts";
 import { Order, Product } from "../types/types";
+import { AppDispatch } from "../store";
 import "./OrdersPage.scss";
 
 type DeleteType = "order" | "product" | "";
@@ -24,7 +25,7 @@ interface OrdersPageProps {
 }
 
 const OrdersPage: React.FC<OrdersPageProps> = ({ pageTitle, searchQuery }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const orders = useSelector(selectOrders) as Order[];
   const products = useSelector(selectProducts) as Product[];
   const selectedOrderId = useSelector(selectSelectedOrderId) as string | number | null;
@@ -80,7 +81,7 @@ const OrdersPage: React.FC<OrdersPageProps> = ({ pageTitle, searchQuery }) => {
     const targetId = Number(itemToDelete.id);
 
     if (deleteType === "order") {
-      dispatch(removeOrder(targetId));
+      dispatch(deleteOrderOnServer(targetId));
     } else if (deleteType === "product") {
       dispatch(removeProduct(targetId));
     }

@@ -1,15 +1,31 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { initialProducts } from "../../utils/mockData";
-import { removeOrder } from "../orders/ordersSlice";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { deleteOrderOnServer } from "../orders/ordersSlice";
 import { Product } from "../../types/types";
+
+const API_URL = "/api/products";
 
 interface ProductsState {
   entities: Product[];
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
 }
 
 const initialState: ProductsState = {
-  entities: initialProducts as Product[],
+  entities: [],
+  status: "idle",
+  error: null,
 };
+
+export const fetchProducts = createAsyncThunk("products/fetchProducts", async (_, { rejectWithValue }) => {
+  try {
+    const response = await fetch(API_URL);
+    if (!response.ok) throw new Error("Error loading products");
+    return (await response.json()) as Product[];
+  } catch (error: any) {
+    return rejectWithValue(error.message);
+  }
+});
+
 
 const productsSlice = createSlice({
   name: "products",
@@ -17,20 +33,19 @@ const productsSlice = createSlice({
   reducers: {
     removeProduct: (state, action: PayloadAction<number | string>) => {
       const productIdToRemove = action.payload;
-      state.entities = state.entities.filter(
-        (product) => product.id !== productIdToRemove
-      );
+      state.entities = state.entities.filter((product) => product.id !== productIdToRemove);
     },
     
-    addProduct: (state, action: PayloadAction<number | string | null>) => {
+      addProduct: (state, action: PayloadAction<number | string | null>) => {
       const selectedOrderId = action.payload;
       if (!selectedOrderId) return;
-
+      
       const maxId = state.entities.reduce((max, p) => {
         const currentId = Number(p.id);
         return isFinite(currentId) && currentId > max ? currentId : max;
       }, 0);
-
+        
+        
       const nextProductId = maxId + 1;
       const randomSN = Math.floor(1000 + Math.random() * 9000);
 
@@ -57,17 +72,28 @@ const productsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(removeOrder, (state, action) => {
-      const orderId = action.payload;
-      state.entities = state.entities.filter(
-        (product) => product.order !== orderId
-      );
-    });
+    builder.addCase(fetchProducts.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchProducts.fulfilled, (state, action: PayloadAction<Product[]>) => {
+        state.status = "succeeded";
+        state.entities = action.payload;
+      })
+      .addCase(fetchProducts.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload as string;
+      })
+      .addCase(deleteOrderOnServer.fulfilled, (state, action) => {
+        const orderId = action.payload;
+        state.entities = state.entities.filter((product) => product.order !== orderId);
+      });
   },
 });
+
 
 export const { removeProduct, addProduct } = productsSlice.actions;
 
 export const selectProducts = (state: { products: ProductsState }) => state.products.entities;
+export const selectProductsStatus = (state: { products: ProductsState }) => state.products.status;
 
 export default productsSlice.reducer;

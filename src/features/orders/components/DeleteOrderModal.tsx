@@ -1,12 +1,5 @@
-
 import React from "react";
-
-interface Product {
-  id?: string | number;
-  photo?: string;
-  title?: string;
-  serialNumber?: string | number;
-}
+import { Product } from "../../../types/types"; 
 
 interface DeleteOrderModalProps {
   isOpen: boolean;

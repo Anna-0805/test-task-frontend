@@ -4,6 +4,7 @@ import { selectProducts, selectOrders, removeProduct } from "../store";
 import DeleteOrderModal from "../features/orders/components/DeleteOrderModal";
 import ProductList from "../features/products/components/ProductList";
 import { Order, Product } from "../types/types";
+import { AppDispatch } from "../store"; 
 import "./ProductsPage.scss";
 
 interface ProductsPageProps {
@@ -11,7 +12,7 @@ interface ProductsPageProps {
 }
 
 const ProductsPage:  React.FC<ProductsPageProps> = ({ searchQuery }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   
   const products = useSelector(selectProducts) as Product[];
   const orders = useSelector(selectOrders) as Order[];
