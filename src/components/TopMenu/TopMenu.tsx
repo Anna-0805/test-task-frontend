@@ -25,8 +25,8 @@ const TopMenu: React.FC<TopMenuProps> = ({ searchQuery, setSearchQuery }) => {
       secure: true,
       autoConnect: true,
       reconnection: true,
-      reconnectionAttempts: 5,
-      reconnectionDelay: 2000,
+      reconnectionAttempts: 20,
+      reconnectionDelay: 3000,
     });
 
      socket.on("connect", () => {
