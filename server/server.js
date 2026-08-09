@@ -46,7 +46,11 @@ app.delete('/api/orders/:id', (req, res) => {
 
 const io = new Server(httpServer, { 
   transports: ["websocket", "polling"], 
-  cors: corsOptions,
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    credentials: true
+  },
   allowEIO3: true 
 }); 
 

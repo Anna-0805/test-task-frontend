@@ -8,6 +8,7 @@ interface TopMenuProps {
   setSearchQuery: (query: string) => void;
 }
 
+
 const TopMenu: React.FC<TopMenuProps> = ({ searchQuery, setSearchQuery }) => {
   const [time, setTime] = useState<Date>(new Date());
   const [activeSession, setActiveSession] = useState<number>(1);
@@ -19,19 +20,24 @@ const TopMenu: React.FC<TopMenuProps> = ({ searchQuery, setSearchQuery }) => {
     return () => clearInterval(timer);
   }, []);
 
-  useEffect(() => {
-    const socket: Socket = io("http://127.0.0.1:3001", {
-      transports: ["websocket", "polling"],
-      secure: true,
+    useEffect(() => {
+    const isProduction = window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1";
+
+    const socketUrl = isProduction 
+      ? "https://onrender.com"
+      : "http://127.0.0.1:3001";
+
+    const socket: Socket = io(socketUrl, {
+      transports: ["polling", "websocket"],
       autoConnect: true,
       reconnection: true,
       reconnectionAttempts: 20,
-      reconnectionDelay: 3000,
+      reconnectionDelay: 2000,
     });
 
-     socket.on("connect", () => {
-    console.log("WebSocket successfully connected!");
-  });
+    socket.on("connect", () => {
+      console.log(`[Socket] Connected successfully to: ${socketUrl}`);
+    });
 
     socket.on("activeSessions", (count: number) => {
       setActiveSession(count);
@@ -41,7 +47,7 @@ const TopMenu: React.FC<TopMenuProps> = ({ searchQuery, setSearchQuery }) => {
       socket.off("activeSessions");
       socket.disconnect();
     };
-}, []);
+  }, []);
 
   const currentDayEn: string = DAYS_EN[time.getDay()];
   const dayStr: string = time.getDate().toString().padStart(2, "0");
