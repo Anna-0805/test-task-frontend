@@ -4,7 +4,7 @@ import { Server } from 'socket.io';
 import morgan from 'morgan';
 import cors from 'cors'; 
 import logger from './logger.js'; 
-import { initialOrders, initialProducts } from './utils/mockData.ts';
+import { initialOrders, initialProducts } from './utils/mockData.js';
 
 const app = express(); 
 const httpServer = createServer(app); 
