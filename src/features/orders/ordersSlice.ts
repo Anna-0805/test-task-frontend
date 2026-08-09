@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { Order } from "../../types/types";
 
-const API_URL = "/api/orders";
+const API_URL = `${(import.meta as any).env?.VITE_API_BASE_URL || ""}/api/orders`;
 
 interface OrdersState {
   entities: Order[];

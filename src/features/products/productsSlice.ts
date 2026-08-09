@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { deleteOrderOnServer } from "../orders/ordersSlice";
 import { Product } from "../../types/types";
 
-const API_URL = "/api/products";
+const API_URL = `${(import.meta as any).env?.VITE_API_BASE_URL || ""}/api/products`
 
 interface ProductsState {
   entities: Product[];
