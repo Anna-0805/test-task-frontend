@@ -24,7 +24,7 @@ const TopMenu: React.FC<TopMenuProps> = ({ searchQuery, setSearchQuery }) => {
     const isProduction = window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1";
 
     const socketUrl = isProduction 
-      ? "https://onrender.com"
+      ? "https://socket-server-qcz4.onrender.com"
       : "http://127.0.0.1:3001";
 
     const socket: Socket = io(socketUrl, {
