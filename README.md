@@ -2,8 +2,7 @@
 
 This is a Single-Page Application (SPA) built for managing orders and products, featuring a real-time active browser sessions/tabs counter integrated via WebSockets.
 
-**Live Demo:** test-task-frontend-eta.vercel.app
-
+**Live Demo (Frontend):** [test-task-frontend-eta.vercel.app]
 
 **Link to the project demonstration video:**
  https://drive.google.com/file/d/1C_CyGFft_fKSN8OCJphzuDB_aaOHMCGD/view?usp=sharing
@@ -11,16 +10,17 @@ This is a Single-Page Application (SPA) built for managing orders and products, 
  ## Database Schema
  The database architectural design layout :
  [Download Database Schema (PDF)](./db_schema.pdf)
+ [Database SQL Script](./database_schema.sql)
 
 ## Tech Stack
 
-**Frontend:** React.js, TypeScript, Redux Toolkit, React Router v6, Bootstrap 5, SCSS, Vite
+**Frontend:** React.js, TypeScript, Redux Toolkit, React Router, Bootstrap, SCSS, Vite
 
 
-**Backend/Realtime:** Node.js, Socket.io (Active sessions counter)
+**Backend/Realtime:** Node.js, Express, Socket.io (Active sessions counter), Winston & Morgan (Logging)
 
 
-**DevOps:** Docker, Docker Compose
+**DevOps & Architecture:** REST API (Axios), Docker, Docker Compose
 
 ---
 
@@ -31,7 +31,7 @@ Make sure you have [Docker](https://docker.com) and [Node.js](https://nodejs.org
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com
+git clone https://github.com/Anna-0805/test-task-frontend
 cd test-task-frontend
 ```
 
@@ -82,9 +82,9 @@ npm run dev
 
 ## Features Implemented
 
-1. **Architecture & State Management (Redux Toolkit):** Conforms strictly to the *Single Source of Truth* pattern. All domain logic, client-side filters, dynamic content indexing, and cascading deletes (removing an order automatically sweeps its dependent products) are managed entirely within Redux slices using strict TypeScript typing.
-2. **Type Safety (TypeScript):** Fully refactored frontend codebase with explicit declarations for components, interfaces (`Product`, `Order`), React synthetic mouse events, and prop validation.
-3. **Orders Page (`OrdersPage`):** Displays incoming deliveries with instant aggregated multi-currency conversions (USD/UAH) and responsive layouts. Selecting an item dynamically splits the interface to present nested items via granular presentation subcomponents (`SelectedOrderProducts`).
-4. **Products Page (`ProductsPage`):** Features a master products data grid with searchable text parameters and a real-time reactive classification selector dropdown.
-5. **Modals & Overlays:** Reusable, accessible transactional verification popups (`DeleteOrderModal`) wrapped with semantic Bootstrap fade structures and backdrop focal shading.
-6. **TopMenu Navigation:** Implements real-time structural clock routines alongside localized browser instance trackers powered concurrently by active client-server event listening routines on `Socket.io`.
+1. **State Management & Single Source of Truth:** All business logic, including client-side filtering and cascading deletion of products when an order is removed, is fully synchronized with the global state using Redux Toolkit.
+2. **Full REST API Integration:** The frontend communicates with the Node.js server via asynchronous controllers (`GET /api/orders`, `GET /api/products`, `DELETE /api/orders/:id`). End-to-end data cleanup is fully implemented on the backend database level.
+3. **WebSockets (Socket.io):** The `TopMenu` component displays the exact number of active application tabs across the network in real time. The backend handles `connection` and `disconnect` events flawlessly.
+4. **CSS Architecture (BEM):** Interface styles are modularized and written strictly according to the BEM methodology using nesting in SCSS.
+5. **Animations & UI/UX:** Smooth transitions (`transition: all 0.3s ease-in-out`) are configured for the orders split-screen interface, and interactive overlays are utilized for deletion modals.
+6. **Strict Typing (TypeScript):** Data interfaces, slice states, component props, and synthetic mouse events are strictly typed without using `any`.
