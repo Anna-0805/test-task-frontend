@@ -87,4 +87,4 @@ npm run dev
 3. **WebSockets (Socket.io):** The `TopMenu` component displays the exact number of active application tabs across the network in real time. The backend handles `connection` and `disconnect` events flawlessly.
 4. **CSS Architecture (BEM):** Interface styles are modularized and written strictly according to the BEM methodology using nesting in SCSS.
 5. **Animations & UI/UX:** Smooth transitions (`transition: all 0.3s ease-in-out`) are configured for the orders split-screen interface, and interactive overlays are utilized for deletion modals.
-6. **Strict Typing (TypeScript):** Data interfaces, slice states, component props, and synthetic mouse events are strictly typed without using `any`.
+6. **Strict Typing (TypeScript):** Data interfaces, slice states, component props, and synthetic mouse events are strictly typed.
