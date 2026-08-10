@@ -95,7 +95,7 @@ const OrdersPage: React.FC<OrdersPageProps> = ({ pageTitle, searchQuery }) => {
   };
 
    return (
-    <div className="orders-page container-fluid p-0">
+    <div className="orders-page container-fluid p-0 page-animate">
       <div className="orders-page__header d-flex align-items-center gap-3 mb-4">
         <button
           className="orders-page__add-btn btn d-flex align-items-center justify-content-center rounded-circle p-0"

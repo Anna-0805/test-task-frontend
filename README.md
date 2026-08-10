@@ -73,7 +73,7 @@ node server.js
 ### 2. Start the Frontend Client
 Open your second terminal window at the root of the project (`test-task-frontend`):
 ```bash
-npm install
+npm install --legacy-peer-deps
 npm run dev
 ```
 *The React application will spin up and open at `http://localhost:5173`.*
@@ -86,5 +86,5 @@ npm run dev
 2. **Full REST API Integration:** The frontend communicates with the Node.js server via asynchronous controllers (`GET /api/orders`, `GET /api/products`, `DELETE /api/orders/:id`). End-to-end data cleanup is fully implemented on the backend database level.
 3. **WebSockets (Socket.io):** The `TopMenu` component displays the exact number of active application tabs across the network in real time. The backend handles `connection` and `disconnect` events flawlessly.
 4. **CSS Architecture (BEM):** Interface styles are modularized and written strictly according to the BEM methodology using nesting in SCSS.
-5. **Animations & UI/UX:** Smooth transitions (`transition: all 0.3s ease-in-out`) are configured for the orders split-screen interface, and interactive overlays are utilized for deletion modals.
+5. **Animations & UI/UX:** Smooth transitions (`transition: all 0.3s ease-in-out`, `@keyframes`,) are configured for the orders split-screen interface, and interactive overlays are utilized for deletion modals.
 6. **Strict Typing (TypeScript):** Data interfaces, slice states, component props, and synthetic mouse events are strictly typed.

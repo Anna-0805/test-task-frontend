@@ -52,7 +52,7 @@ const ProductsPage:  React.FC<ProductsPageProps> = ({ searchQuery }) => {
   };
 
   return (
-    <div className="products-page">
+    <div className="products-page page-animate">
       <div className="products-page__header d-flex align-items-center gap-5 mb-4">
         <h2 className="products-page__title fw-bold text-dark m-0">
           Products / {filteredProducts.length}

@@ -20,6 +20,7 @@ CREATE TABLE products (
     guarantee_end DATETIME,
     price_usd DECIMAL(10,2),
     price_uah DECIMAL(10,2),
-    order_id INT NOT NULL,
+    `order` INT NOT NULL,
+    date DATETIME NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
